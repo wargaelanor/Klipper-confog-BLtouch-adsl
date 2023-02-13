@@ -1,20 +1,32 @@
 # Шаги установки
 https://github.com/blacknet76/FlyingBear-Reborn-2/tree/main/Klipper/Config
 
-	Ставим сборку MainSale
-sudo apt-get update						- проверка обновлений
-sudo apt-get upgrade					- обновления
-sudo apt-get dist-update				- обновления дистрибутива если есть.
-sudo reboot								- перезагрузка
+### Ставим дистрибутив сборку MainSale
+проверка обновлений
+```
+sudo apt-get update
+sudo apt-get upgrade
+sudo apt-get dist-update
+```
+перезагрузка
+```	
+sudo reboot
+```
 
-sudo apt-get install git				- Установка пакета git
-git clone https://github.com/th33xitus/kiauh.git		- скачивания скрипта kiauh
-cd kiauh/								- вход в папку kiauh
-chmod +x kiauh.sh scripts/*				- установка прав доступа к файлам
-./kiauh.sh								- запуск скрипта kiauh
-	удаляем всё
-	Ставим всё заново пункты 1 2 4 3
-	компилируем прошивку 4 2
+### Установка пакета git
+```
+sudo apt-get install git
+```
+### скачивания скрипта kiauh, устанавливаем
+```
+git clone https://github.com/th33xitus/kiauh.git		
+cd kiauh/
+chmod +x kiauh.sh scripts/*
+./kiauh.sh
+```
+* удаляем всё если
+* Ставим всё заново пункты `1` `2` `4` `3`
+* компилируем прошивку `4` `2`
 	
 	extra low
 	stm
@@ -22,14 +34,15 @@ chmod +x kiauh.sh scripts/*				- установка прав доступа к �
 	48Kit
 	8MHz
 	USB или PA10/PA9(esp8266)
-выход 
+* выход 
 
-cp ~/klipper/out/klipper.bin ~/printer_data/config/firmware.bin     для скачивания прошивки из web
+	cp ~/klipper/out/klipper.bin ~/printer_data/config/firmware.bin     для скачивания прошивки из web
 
-ls /dev/serial/by-id/*    поиск устройства
+	ls /dev/serial/by-id/*    поиск устройства
 serial: /dev/serial/by-id/usb-Klipper_stm32f407xx_2F002B001350465636393320-if00
 
-камера
+Установка камера
+```
 cd ~/crowsnest
 make uninstall
 sudo rm -r ~/crowsnest
@@ -38,27 +51,31 @@ git clone https://github.com/mainsail-crew/crowsnest.git
 cd ~/crowsnest
 make config (визде энтер и У)
 sudo make install
-создаём crowsnest.conf
-v4l2-ctl --list-devices   поиск камеры
+```
+поиск камеры
+```
+v4l2-ctl --list-devices
+```
+создаём `crowsnest.conf` и вписываем
+```
+[crowsnest]
+log_path: ~/printer_data/logs/crowsnest.log
+log_level: quiet
 
-			---создание пользователя klipper---
+[cam 1]
+mode: mjpg                              # mjpg/rtsp
+port: 8080                              # Port
+device: /dev/video0                    # See Log for available ...
+resolution: 1920x1080                     # widthxheight format
+max_fps: 25                             # If Hardware Supports this it will be forced, ohterwise ignored/coerced.
+#custom_flags:                          # You can run the Stream Services with custom flags.
+v4l2ctl: brightness=64
+```
 
-sudo adduser klipper					- создать пользователя klipper
-sudo usermod -a -G tty klipper				- предоставляет доступ на чтение и запись для устройств /dev/vca
-sudo usermod -a -G dialout klipper			- полный доступ к серийному порту
-sudo adduser klipper sudo				- разрешает пользоваться правами администратора 
-su klipper						- вход под пользователем klipper
-cd ~						- переход в домашнюю папку klipper
 
-			--- создание прошивки для платы принтера---
 
-cd ~/klipper 2
-make clean					- очищаем, в нашем случае сбросит все настройки menuconfig
-make menuconfig					- конфигурируем прошивку под наш контроллер
-make						- собираем прошивку.
-
-ls /dev/serial/by-id/*					- узнаем адрес нашей платы по ID
-
+`----------------------------------------------------------------------------------------------`
+поле для заметрок
 
 В консоле klipper
 PID_CALIBRATE HEATER=extruder TARGET=200 	- запустит калибровку экструдера на 200 градусов;
@@ -82,17 +99,6 @@ make flash
 sudo service klipper start
 sudo usermod -a -G tty pi
 sudo reboot
-			---записать в printer.cfg---
-[mcu rpi]
-serial: /tmp/klipper_host_mcu
-			
-[adxl345]
-cs_pin: rpi:None
-
-[resonance_tester]
-accel_chip: adxl345
-probe_points:
-    100, 100, 20  # координаты теста
 
 			---В консоле klipper---
 
