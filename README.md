@@ -1,5 +1,4 @@
 # Шаги установки
-https://github.com/blacknet76/FlyingBear-Reborn-2/tree/main/Klipper/Config
 
 ### Ставим дистрибутив сборку MainSale
 проверка обновлений
@@ -113,3 +112,4 @@ TEST_RESONANCES AXIS=Y	- тест оси Y
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png - сохранить результат в png
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
 
+https://github.com/blacknet76/FlyingBear-Reborn-2/tree/main/Klipper/Config
