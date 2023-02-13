@@ -24,12 +24,11 @@ chmod +x kiauh.sh scripts/*				- установка прав доступа к �
 	USB или PA10/PA9(esp8266)
 выход 
 
-=====================================================
 cp ~/klipper/out/klipper.bin ~/printer_data/config/firmware.bin     для скачивания прошивки из web
-=====================================================
+
 ls /dev/serial/by-id/*    поиск устройства
 serial: /dev/serial/by-id/usb-Klipper_stm32f407xx_2F002B001350465636393320-if00
-=====================================================
+
 камера
 cd ~/crowsnest
 make uninstall
@@ -42,8 +41,6 @@ sudo make install
 создаём crowsnest.conf
 v4l2-ctl --list-devices   поиск камеры
 
-
-=====================================================
 			---создание пользователя klipper---
 
 sudo adduser klipper					- создать пользователя klipper
@@ -67,7 +64,7 @@ ls /dev/serial/by-id/*					- узнаем адрес нашей платы по 
 PID_CALIBRATE HEATER=extruder TARGET=200 	- запустит калибровку экструдера на 200 градусов;
 PID_CALIBRATE HEATER=heater_bed TARGET=90 	- запустит калибровку стола на 90 градусов.
 SAVE_CONFIG
-=====================================================
+
 ---в консоли Linux---
 ~/klippy-env/bin/pip install -v numpy
 sudo apt install python3-numpy python3-matplotlib
@@ -109,4 +106,3 @@ TEST_RESONANCES AXIS=Y	- тест оси Y
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_x_*.csv -o /tmp/shaper_calibrate_x.png - сохранить результат в png
 ~/klipper/scripts/calibrate_shaper.py /tmp/resonances_y_*.csv -o /tmp/shaper_calibrate_y.png
 
-=====================================================
